@@ -2,14 +2,12 @@
 
 Dead simple terminal plots from JSON data. Bar charts and line charts are supported.
 
-![Bar chart](docs/bar_chart.png)
-![Line chart](docs/line_chart.png)
-
 <!-- TOC -->
 
 - [Get it](#get-it)
 - [Use it](#use-it)
 - [Examples](#examples)
+    - [Screenshots](#screenshots)
     - [Bar chart](#bar-chart)
         - [Separate X and Y values](#separate-x-and-y-values)
         - [XY pairs](#xy-pairs)
@@ -65,6 +63,13 @@ Usage of jp:
 ```
 
 ## Examples
+
+### Screenshots
+
+In case you're on mobile, here's some PNGs of what `jp` output looks like:
+
+- ![Bar chart](docs/bar_chart.png)
+- ![Line chart](docs/line_chart.png)
 
 ### Bar chart
 
