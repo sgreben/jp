@@ -1,4 +1,4 @@
-VERSION = 1.0.0
+VERSION = 1.0.1
 
 APP      := jp
 PACKAGES := $(shell go list -f {{.Dir}} ./...)
@@ -20,13 +20,13 @@ clean:
 release: zip
 	git push
 	hub release delete $(VERSION) || true
-	hub release create $(VERSION) -m "$(VERSION)" -a release/$(APP)_$(VERSION)_osx_x86_64.zip -a release/$(APP)_$(VERSION)_windows_x86_64.zip -a release/$(APP)_$(VERSION)_linux_x86_64.zip -a release/$(APP)_$(VERSION)_osx_x86_32.zip -a release/$(APP)_$(VERSION)_windows_x86_32.zip -a release/$(APP)_$(VERSION)_linux_x86_32.zip
+	hub release create $(VERSION) -m "$(VERSION)" -a release/$(APP)_$(VERSION)_osx_x86_64.zip -a release/$(APP)_$(VERSION)_windows_x86_64.zip -a release/$(APP)_$(VERSION)_linux_x86_64.zip -a release/$(APP)_$(VERSION)_osx_x86_32.zip -a release/$(APP)_$(VERSION)_windows_x86_32.zip -a release/$(APP)_$(VERSION)_linux_x86_32.zip -a release/$(APP)_$(VERSION)_linux_arm64.zip
 
 docker: binaries/linux_x86_64/$(APP)
 	docker build -t quay.io/sergey_grebenshchikov/$(APP):v$(VERSION) .
 	docker push quay.io/sergey_grebenshchikov/$(APP):v$(VERSION)
 
-zip: release/$(APP)_$(VERSION)_osx_x86_64.zip release/$(APP)_$(VERSION)_windows_x86_64.zip release/$(APP)_$(VERSION)_linux_x86_64.zip release/$(APP)_$(VERSION)_osx_x86_32.zip release/$(APP)_$(VERSION)_windows_x86_32.zip release/$(APP)_$(VERSION)_linux_x86_32.zip
+zip: release/$(APP)_$(VERSION)_osx_x86_64.zip release/$(APP)_$(VERSION)_windows_x86_64.zip release/$(APP)_$(VERSION)_linux_x86_64.zip release/$(APP)_$(VERSION)_osx_x86_32.zip release/$(APP)_$(VERSION)_windows_x86_32.zip release/$(APP)_$(VERSION)_linux_x86_32.zip release/$(APP)_$(VERSION)_linux_arm64.zip
 
 binaries: binaries/osx_x86_64/$(APP) binaries/windows_x86_64/$(APP).exe binaries/linux_x86_64/$(APP) binaries/osx_x86_32/$(APP) binaries/windows_x86_32/$(APP).exe binaries/linux_x86_32/$(APP)
 
@@ -71,3 +71,10 @@ release/$(APP)_$(VERSION)_linux_x86_32.zip: binaries/linux_x86_32/$(APP)
 	
 binaries/linux_x86_32/$(APP): $(GOFILES)
 	GOOS=linux GOARCH=386 go build -ldflags "-X main.version=$(VERSION)" -o binaries/linux_x86_32/$(APP) ./cmd/$(APP)
+
+release/$(APP)_$(VERSION)_linux_arm64.zip: binaries/linux_arm64/$(APP)
+	mkdir -p release
+	cd ./binaries/linux_arm64 && zip -r -D ../../release/$(APP)_$(VERSION)_linux_arm64.zip $(APP)
+	
+binaries/linux_arm64/$(APP): $(GOFILES)
+	GOOS=linux GOARCH=arm64 go build -ldflags "-X main.version=$(VERSION)" -o binaries/linux_arm64/$(APP) ./cmd/$(APP)
