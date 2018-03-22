@@ -2,6 +2,9 @@
 
 Dead simple terminal plots from JSON data. Bar charts and line charts are supported.
 
+![Bar chart](docs/bar_chart.png)
+![Line chart](docs/line_chart.png)
+
 <!-- TOC -->
 
 - [Get it](#get-it)
