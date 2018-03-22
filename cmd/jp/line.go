@@ -10,17 +10,21 @@ import (
 func linePlotData(xvv, yvv [][]reflect.Value) (x, y []float64) {
 	for _, xv := range xvv {
 		for i := range xv {
-			xvi, ok := xv[i].Interface().(float64)
-			if ok {
-				x = append(x, xvi)
+			if xv[i].IsValid() && xv[i].CanInterface() {
+				xvi, ok := xv[i].Interface().(float64)
+				if ok {
+					x = append(x, xvi)
+				}
 			}
 		}
 	}
 	for _, yv := range yvv {
 		for i := range yv {
-			yvi, ok := yv[i].Interface().(float64)
-			if ok {
-				y = append(y, yvi)
+			if yv[i].IsValid() && yv[i].CanInterface() {
+				yvi, ok := yv[i].Interface().(float64)
+				if ok {
+					y = append(y, yvi)
+				}
 			}
 		}
 	}

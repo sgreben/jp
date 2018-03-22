@@ -7,6 +7,7 @@ Dead simple terminal plots from JSON data. Bar charts and line charts are suppor
 - [Get it](#get-it)
 - [Use it](#use-it)
 - [Examples](#examples)
+    - [Screenshots](#screenshots)
     - [Bar chart](#bar-chart)
         - [Separate X and Y values](#separate-x-and-y-values)
         - [XY pairs](#xy-pairs)
@@ -29,16 +30,16 @@ Or [download the binary](https://github.com/sgreben/jp/releases/latest) from the
 
 ```bash
 # Linux
-curl -LO https://github.com/sgreben/jp/releases/download/1.0.0/jp_1.0.0_linux_x86_64.zip
-unzip jp_1.0.0_linux_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.0.1/jp_1.0.1_linux_x86_64.zip
+unzip jp_1.0.1_linux_x86_64.zip
 
 # OS X
-curl -LO https://github.com/sgreben/jp/releases/download/1.0.0/jp_1.0.0_osx_x86_64.zip
-unzip jp_1.0.0_osx_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.0.1/jp_1.0.1_osx_x86_64.zip
+unzip jp_1.0.1_osx_x86_64.zip
 
 # Windows
-curl -LO https://github.com/sgreben/jp/releases/download/1.0.0/jp_1.0.0_windows_x86_64.zip
-unzip jp_1.0.0_windows_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.0.1/jp_1.0.1_windows_x86_64.zip
+unzip jp_1.0.1_windows_x86_64.zip
 ```
 
 ## Use it
@@ -62,6 +63,13 @@ Usage of jp:
 ```
 
 ## Examples
+
+### Screenshots
+
+In case you're on mobile, here's some PNGs of what `jp` output looks like:
+
+- ![Bar chart](docs/bar_chart.png)
+- ![Line chart](docs/line_chart.png)
 
 ### Bar chart
 

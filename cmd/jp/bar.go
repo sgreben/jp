@@ -11,14 +11,18 @@ import (
 func barPlotData(xvv, yvv [][]reflect.Value) (x []string, y []float64) {
 	for _, xv := range xvv {
 		for i := range xv {
-			x = append(x, fmt.Sprint(xv[i].Interface()))
+			if xv[i].IsValid() && xv[i].CanInterface() {
+				x = append(x, fmt.Sprint(xv[i].Interface()))
+			}
 		}
 	}
 	for _, yv := range yvv {
 		for i := range yv {
-			yvi, ok := yv[i].Interface().(float64)
-			if ok {
-				y = append(y, yvi)
+			if yv[i].IsValid() && yv[i].CanInterface() {
+				yvi, ok := yv[i].Interface().(float64)
+				if ok {
+					y = append(y, yvi)
+				}
 			}
 		}
 	}
