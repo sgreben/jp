@@ -69,7 +69,7 @@ Usage of jp:
 
 ```bash
 $ cat examples/tcp-time.json | jp -x ..Label -y ..Count -type bar
-      69.0
+         69.0
      █████████████
      █████████████
      █████████████
@@ -86,7 +86,7 @@ $ cat examples/tcp-time.json | jp -x ..Label -y ..Count -type bar
 
 ```bash
 $ cat examples/tcp-time.json | jp -xy "..[Label,Count]" -type bar
-      69.0
+         69.0
      █████████████
      █████████████
      █████████████
