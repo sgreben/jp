@@ -2,3 +2,11 @@ language: go
 go:
   - "1.10"
 script: make zip
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file_glob: true
+  file: release/*
+  skip_cleanup: true
+  on:
+    tags: true
