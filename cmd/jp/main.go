@@ -7,7 +7,9 @@ import (
 	"log"
 	"os"
 	"reflect"
+	"runtime"
 
+	"github.com/mattn/go-runewidth"
 	"github.com/sgreben/jp/pkg/jp/primitives"
 	"github.com/sgreben/jp/pkg/terminal"
 
@@ -71,9 +73,19 @@ func init() {
 	}
 	if config.Box.Width == 0 {
 		config.Box.Width = terminal.Width()
+		if runtime.GOOS == "windows" {
+			config.Box.Width--
+		}
 	}
 	if config.Box.Height == 0 {
 		config.Box.Height = terminal.Height() - 1
+	}
+	if runewidth.StringWidth(primitives.HorizontalLine) == 2 {
+		primitives.HorizontalLine = "-"
+		primitives.VerticalLine = "|"
+		primitives.CornerBottomLeft = "+"
+		primitives.PointSymbolDefault = "*"
+		primitives.Cross = "X"
 	}
 }
 
