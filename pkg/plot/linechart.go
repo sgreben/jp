@@ -97,11 +97,8 @@ func minMax(data *DataTable) (minX, maxX, minY, maxY float64) {
 		minY = math.Min(minY, r[1])
 	}
 
-	xRange := maxX - minX
 	yRange := maxY - minY
-	minX = roundDownToPercentOfRange(minX, xRange)
 	minY = roundDownToPercentOfRange(minY, yRange)
-	maxX = roundUpToPercentOfRange(maxX, xRange)
 	maxY = roundUpToPercentOfRange(maxY, yRange)
 	return
 }

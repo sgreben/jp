@@ -51,9 +51,7 @@ func (c *ScatterChart) Draw(data *DataTable) string {
 		}
 		x := int((point[0]-minX)*scaleX + float64((paddingX+1)*c.RuneSize().Width))
 		y := int((point[1]-minY)*scaleY + float64(paddingY*c.RuneSize().Height))
-
 		c.Set(y, x)
-
 	}
 	c.drawAxes(paddingX, paddingY, minX, maxX, minY, maxY)
 
