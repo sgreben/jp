@@ -1,4 +1,4 @@
-package primitives
+package draw
 
 // Adapted from https://github.com/buger/goterm under the MIT License.
 
@@ -27,8 +27,7 @@ SOFTWARE.
 
 */
 
-// http://en.wikipedia.org/wiki/Bresenham's_line_algorithm
-func DrawLine(x0, y0, x1, y1 int, plot func(int, int)) {
+func line(y0, x0, y1, x1 int, plot func(y, x int)) {
 	dx := x1 - x0
 	if dx < 0 {
 		dx = -dx
@@ -51,7 +50,7 @@ func DrawLine(x0, y0, x1, y1 int, plot func(int, int)) {
 	err := dx - dy
 
 	for {
-		plot(x0, y0)
+		plot(y0, x0)
 		if x0 == x1 && y0 == y1 {
 			break
 		}

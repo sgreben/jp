@@ -8,7 +8,7 @@ import (
 	"github.com/sgreben/jp/pkg/plot"
 )
 
-func linePlotData(xvv, yvv [][]reflect.Value) (x, y []float64) {
+func scatterPlotData(xvv, yvv [][]reflect.Value) (x, y []float64) {
 	for _, xv := range xvv {
 		for i := range xv {
 			if xv[i].IsValid() && xv[i].CanInterface() {
@@ -32,9 +32,9 @@ func linePlotData(xvv, yvv [][]reflect.Value) (x, y []float64) {
 	return
 }
 
-func linePlot(xvv, yvv [][]reflect.Value, c draw.Canvas) string {
-	x, y := linePlotData(xvv, yvv)
-	chart := plot.NewLineChart(c)
+func scatterPlot(xvv, yvv [][]reflect.Value, c draw.Canvas) string {
+	x, y := scatterPlotData(xvv, yvv)
+	chart := plot.NewScatterChart(c)
 	data := new(plot.DataTable)
 	data.AddColumn("x")
 	data.AddColumn("y")

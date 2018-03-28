@@ -1,4 +1,4 @@
-package jp
+package plot
 
 type DataTable struct {
 	Columns []string

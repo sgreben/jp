@@ -6,8 +6,8 @@ import (
 )
 
 type enumVar struct {
-	Choices []string // The acceptable choices the user may pass to the flag
-	Value   string   // the current value of the flag
+	Choices []string
+	Value   string
 }
 
 // Set implements the flag.Value interface.
@@ -18,7 +18,7 @@ func (so *enumVar) Set(v string) error {
 			return nil
 		}
 	}
-	return fmt.Errorf("invalid choice; must be one of %s", strings.Join(so.Choices, ","))
+	return fmt.Errorf("must be one of [%s]", strings.Join(so.Choices, " "))
 }
 
 func (so *enumVar) String() string {

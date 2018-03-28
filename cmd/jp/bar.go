@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/sgreben/jp/pkg/jp"
-	"github.com/sgreben/jp/pkg/jp/primitives"
+	"github.com/sgreben/jp/pkg/draw"
+	"github.com/sgreben/jp/pkg/plot"
 )
 
 func barPlotData(xvv, yvv [][]reflect.Value) (x []string, y []float64) {
@@ -29,10 +29,10 @@ func barPlotData(xvv, yvv [][]reflect.Value) (x []string, y []float64) {
 	return
 }
 
-func barPlot(xvv, yvv [][]reflect.Value, box primitives.Box) string {
+func barPlot(xvv, yvv [][]reflect.Value, c draw.Canvas) string {
 	groups, y := barPlotData(xvv, yvv)
-	chart := jp.NewBarChart(box.Width, box.Height)
-	data := new(jp.DataTable)
+	chart := plot.NewBarChart(c)
+	data := new(plot.DataTable)
 	if len(groups) != len(y) {
 		for i := range y {
 			data.AddColumn(fmt.Sprint(i))
