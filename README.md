@@ -1,6 +1,6 @@
 # jp
 
-Dead simple terminal plots from JSON data. Bar charts and line charts are supported.
+Dead simple terminal plots from JSON data. Bar charts, line charts, and scatter plots are supported.
 
 <!-- TOC -->
 
