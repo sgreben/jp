@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/csv"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -21,6 +22,7 @@ type configuration struct {
 	XY         string
 	PlotType   enumVar
 	CanvasType enumVar
+	InputType  enumVar
 }
 
 const (
@@ -35,6 +37,11 @@ const (
 	canvasTypeQuarter = "quarter"
 	canvasTypeBraille = "braille"
 	canvasTypeAuto    = "auto"
+)
+
+const (
+	inputTypeCSV  = "csv"
+	inputTypeJSON = "json"
 )
 
 var config = configuration{
@@ -55,6 +62,13 @@ var config = configuration{
 			canvasTypeAuto,
 		},
 	},
+	InputType: enumVar{
+		Value: inputTypeJSON,
+		Choices: []string{
+			inputTypeJSON,
+			inputTypeCSV,
+		},
+	},
 }
 
 var (
@@ -66,6 +80,7 @@ var (
 func init() {
 	flag.Var(&config.PlotType, "type", fmt.Sprintf("Plot type. One of %v", config.PlotType.Choices))
 	flag.Var(&config.CanvasType, "canvas", fmt.Sprintf("Canvas type. One of %v", config.CanvasType.Choices))
+	flag.Var(&config.InputType, "input", fmt.Sprintf("Input type. One of %v", config.InputType.Choices))
 	flag.StringVar(&config.X, "x", "", "x values (JSONPath expression)")
 	flag.StringVar(&config.Y, "y", "", "y values (JSONPath expression)")
 	flag.StringVar(&config.XY, "xy", "", "x,y value pairs (JSONPath expression). Overrides -x and -y if given.")
@@ -113,12 +128,21 @@ func match(in interface{}, p *jsonpath.JSONPath) [][]reflect.Value {
 
 func main() {
 	var in interface{}
-	dec := json.NewDecoder(os.Stdin)
-	err := dec.Decode(&in)
-	if err != nil {
-		log.Println(err)
+	switch config.InputType.Value {
+	case inputTypeJSON:
+		dec := json.NewDecoder(os.Stdin)
+		err := dec.Decode(&in)
+		if err != nil {
+			log.Println(err)
+		}
+	case inputTypeCSV:
+		r := csv.NewReader(os.Stdin)
+		rows, err := r.ReadAll()
+		if err != nil {
+			log.Println(err)
+		}
+		in = parseRows(rows)
 	}
-	fmt.Println()
 	var x, y [][]reflect.Value
 	if xyPattern != nil {
 		x, y = split(match(in, xyPattern))
@@ -138,6 +162,7 @@ func main() {
 	}
 	p.Clear()
 	c := draw.Canvas{Pixels: p}
+	fmt.Println()
 	switch config.PlotType.Value {
 	case plotTypeLine:
 		fmt.Println(linePlot(x, y, c))

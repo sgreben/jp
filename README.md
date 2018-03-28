@@ -1,6 +1,6 @@
 # jp
 
-Dead simple terminal plots from JSON data. Bar charts, line charts, and scatter plots are supported.
+Dead simple terminal plots from JSON (or CSV) data. Bar charts, line charts, and scatter plots are supported.
 
 <!-- TOC -->
 
@@ -18,6 +18,7 @@ Dead simple terminal plots from JSON data. Bar charts, line charts, and scatter 
         - [Array data, XY pairs](#array-data-xy-pairs)
         - [Y values only (X=index)](#y-values-only-xindex-1)
     - [Scatter plot](#scatter-plot)
+    - [CSV input](#csv-input)
 
 <!-- /TOC -->
 
@@ -31,16 +32,16 @@ Or [download the binary](https://github.com/sgreben/jp/releases/latest) from the
 
 ```bash
 # Linux
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.1/jp_1.1.1_linux_x86_64.zip
-unzip jp_1.1.1_linux_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.1.2/jp_1.1.2_linux_x86_64.zip
+unzip jp_1.1.2_linux_x86_64.zip
 
 # OS X
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.1/jp_1.1.1_osx_x86_64.zip
-unzip jp_1.1.1_osx_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.1.2/jp_1.1.2_osx_x86_64.zip
+unzip jp_1.1.2_osx_x86_64.zip
 
 # Windows
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.1/jp_1.1.1_windows_x86_64.zip
-unzip jp_1.1.1_windows_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.1.2/jp_1.1.2_windows_x86_64.zip
+unzip jp_1.1.2_windows_x86_64.zip
 ```
 
 ## Use it
@@ -63,6 +64,8 @@ Usage of jp:
     	Plot width (default 0 (auto))
   -canvas value
     	Canvas type. One of [full quarter braille auto] (default auto)
+  -input value
+        Input type. One of [json csv] (default json)
 ```
 
 ## Examples
@@ -278,4 +281,25 @@ $ cat examples/mvrnorm.json | jp -xy '..[x,y]' -type scatter
          │                                      ⠈                              
 -4.271874└─────────────────────────────────────────────────────────────────────
           -4.08815                                                       3.79083
+```
+
+### CSV input
+
+```
+$ cat examples/sin.csv | jp -input csv -xy '[*][0,1]'
+
+  1.059955│       ▗▄▛▀▀▚▄▖                                    ▄▄▀▀▀▄▄
+          │     ▗▞▘      ▝▚▖                                ▄▀      ▝▀▄
+          │    ▟▘          ▝▄                             ▗▀          ▝▀▖
+          │  ▗▛              ▚▖                          ▞▘             ▝▙
+          │ ▄▘                ▀▖                        ▞                 ▚
+          │▞▘                  ▝▌                     ▗▛                   ▚▖
+          │                     ▝▚                   ▐▘                     ▝▄
+          │                       ▜▖                ▟▘                       ▝▄
+          │                        ▐▄             ▗▞                          ▝▚
+          │                          ▚▖          ▄▀
+          │                           ▀▙▖      ▄▛
+          │                             ▀▀▄▄▄▞▀▘
+ -1.059955└─────────────────────────────────────────────────────────────────────
+          0                                                                 9.95
 ```
