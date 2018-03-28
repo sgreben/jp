@@ -67,8 +67,8 @@ func (c *BarChart) Draw(data *DataTable) string {
 		}
 
 		// Group label
-		barMiddle := (barLeft + barRight) / 2
-		c.GetBuffer().WriteCenter(0, barMiddle/c.RuneSize().Width, []rune(group))
+		barMiddle := int(math.Floor(float64(barLeft+barRight) / float64(2*c.RuneSize().Width)))
+		c.GetBuffer().WriteCenter(0, barMiddle, []rune(group))
 
 		// Count label
 		countLabelY := int(math.Ceil(float64(barTop)/float64(c.RuneSize().Height))) * c.RuneSize().Height
@@ -78,7 +78,7 @@ func (c *BarChart) Draw(data *DataTable) string {
 			countLabelY = 3 * c.RuneSize().Height
 		}
 
-		c.GetBuffer().WriteCenter(countLabelY/c.RuneSize().Height, barMiddle/c.RuneSize().Width, Ff(y))
+		c.GetBuffer().WriteCenter(countLabelY/c.RuneSize().Height, barMiddle, Ff(y))
 	}
 
 	b := bytes.NewBuffer(nil)
