@@ -2,6 +2,8 @@
 
 Dead simple terminal plots from JSON (or CSV) data. Bar charts, line charts, and scatter plots are supported.
 
+[![Build Status](https://travis-ci.org/sgreben/jp.svg?branch=master)](https://travis-ci.org/sgreben/jp)
+
 <!-- TOC -->
 
 - [Get it](#get-it)
