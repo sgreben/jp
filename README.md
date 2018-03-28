@@ -9,7 +9,6 @@ Dead simple terminal plots from JSON (or CSV) data. Bar charts, line charts, and
 - [Get it](#get-it)
 - [Use it](#use-it)
 - [Examples](#examples)
-    - [Screenshots](#screenshots)
     - [Bar chart](#bar-chart)
         - [Separate X and Y values](#separate-x-and-y-values)
         - [XY pairs](#xy-pairs)
@@ -21,6 +20,7 @@ Dead simple terminal plots from JSON (or CSV) data. Bar charts, line charts, and
         - [Y values only (X=index)](#y-values-only-xindex-1)
     - [Scatter plot](#scatter-plot)
     - [CSV input](#csv-input)
+- [Screenshots](#screenshots)
 
 <!-- /TOC -->
 
@@ -71,14 +71,6 @@ Usage of jp:
 ```
 
 ## Examples
-
-### Screenshots
-
-In case you're on mobile, here's some PNGs of what `jp` output looks like:
-
-- ![Scatter plot](docs/scatter_plot.png)
-- ![Bar chart](docs/bar_chart.png)
-- ![Line chart](docs/line_chart.png)
 
 ### Bar chart
 
@@ -305,3 +297,11 @@ $ cat examples/sin.csv | jp -input csv -xy '[*][0,1]'
  -1.059955└─────────────────────────────────────────────────────────────────────
           0                                                                 9.95
 ```
+
+## Screenshots
+
+In case you're on mobile, here's some PNGs of what `jp` output looks like:
+
+- ![Scatter plot](docs/scatter_plot.png)
+- ![Bar chart](docs/bar_chart.png)
+- ![Line chart](docs/line_chart.png)
