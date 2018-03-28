@@ -11,10 +11,10 @@ func flatten(in [][]reflect.Value) (out []reflect.Value) {
 	return
 }
 
-func split(in [][]reflect.Value) (x, y [][]reflect.Value) {
+func split(in [][]reflect.Value) (x, y []reflect.Value) {
 	flat := flatten(in)
 	n := len(flat)
-	x = [][]reflect.Value{flat[:n/2]}
-	y = [][]reflect.Value{flat[n/2:]}
+	x = flat[:n/2]
+	y = flat[n/2:]
 	return
 }

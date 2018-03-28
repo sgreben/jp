@@ -3,6 +3,7 @@ package plot
 import (
 	"bytes"
 
+	"github.com/sgreben/jp/pkg/data"
 	"github.com/sgreben/jp/pkg/draw"
 )
 
@@ -28,10 +29,10 @@ func (c *ScatterChart) drawAxes(paddingX, paddingY int, minX, maxX, minY, maxY f
 }
 
 // Draw implements Chart
-func (c *ScatterChart) Draw(data *DataTable) string {
+func (c *ScatterChart) Draw(table *data.Table) string {
 	var scaleY, scaleX float64
 
-	minX, maxX, minY, maxY := minMax(data)
+	minX, maxX, minY, maxY := minMax(table)
 	minLabelWidth := len(Ff(minY))
 	maxLabelWidth := len(Ff(maxY))
 
@@ -45,7 +46,7 @@ func (c *ScatterChart) Draw(data *DataTable) string {
 	scaleX = float64(chartWidth) / (maxX - minX)
 	scaleY = float64(chartHeight) / (maxY - minY)
 
-	for _, point := range data.Rows {
+	for _, point := range table.Rows {
 		if len(point) < 2 {
 			continue
 		}

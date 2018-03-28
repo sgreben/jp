@@ -23,6 +23,7 @@ type configuration struct {
 	PlotType   enumVar
 	CanvasType enumVar
 	InputType  enumVar
+	HistBins   uint
 }
 
 const (
@@ -51,6 +52,7 @@ var config = configuration{
 			plotTypeLine,
 			plotTypeBar,
 			plotTypeScatter,
+			plotTypeHist,
 		},
 	},
 	CanvasType: enumVar{
@@ -86,8 +88,10 @@ func init() {
 	flag.StringVar(&config.XY, "xy", "", "x,y value pairs (JSONPath expression). Overrides -x and -y if given.")
 	flag.IntVar(&config.Box.Width, "width", 0, "Plot width (default 0 (auto))")
 	flag.IntVar(&config.Box.Height, "height", 0, "Plot height (default 0 (auto))")
+	flag.UintVar(&config.HistBins, "bins", 0, "Number of histogram bins (default 0 (auto))")
 	flag.Parse()
 	log.SetOutput(os.Stderr)
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	var err error
 	xPattern = jsonpath.New("x")
@@ -143,12 +147,12 @@ func main() {
 		}
 		in = parseRows(rows)
 	}
-	var x, y [][]reflect.Value
+	var x, y []reflect.Value
 	if xyPattern != nil {
 		x, y = split(match(in, xyPattern))
 	} else {
-		x = match(in, xPattern)
-		y = match(in, yPattern)
+		x = flatten(match(in, xPattern))
+		y = flatten(match(in, yPattern))
 	}
 	buffer := draw.NewBuffer(config.Box)
 	var p draw.Pixels
@@ -162,7 +166,6 @@ func main() {
 	}
 	p.Clear()
 	c := draw.Canvas{Pixels: p}
-	fmt.Println()
 	switch config.PlotType.Value {
 	case plotTypeLine:
 		fmt.Println(linePlot(x, y, c))
@@ -170,5 +173,7 @@ func main() {
 		fmt.Println(scatterPlot(x, y, c))
 	case plotTypeBar:
 		fmt.Println(barPlot(x, y, c))
+	case plotTypeHist:
+		fmt.Println(histogram(x, c, config.HistBins))
 	}
 }

@@ -1,46 +1,47 @@
 package main
 
 import (
+	"log"
 	"reflect"
 
+	"github.com/sgreben/jp/pkg/data"
 	"github.com/sgreben/jp/pkg/draw"
 
 	"github.com/sgreben/jp/pkg/plot"
 )
 
-func linePlotData(xvv, yvv [][]reflect.Value) (x, y []float64) {
-	for _, xv := range xvv {
-		for i := range xv {
-			if xv[i].IsValid() && xv[i].CanInterface() {
-				xvi, ok := xv[i].Interface().(float64)
-				if ok {
-					x = append(x, xvi)
-				}
+func linePlotData(xv, yv []reflect.Value) (x, y []float64) {
+	for i := range xv {
+		if xv[i].IsValid() && xv[i].CanInterface() {
+			xvi, ok := xv[i].Interface().(float64)
+			if ok {
+				x = append(x, xvi)
 			}
 		}
 	}
-	for _, yv := range yvv {
-		for i := range yv {
-			if yv[i].IsValid() && yv[i].CanInterface() {
-				yvi, ok := yv[i].Interface().(float64)
-				if ok {
-					y = append(y, yvi)
-				}
+	for i := range yv {
+		if yv[i].IsValid() && yv[i].CanInterface() {
+			yvi, ok := yv[i].Interface().(float64)
+			if ok {
+				y = append(y, yvi)
 			}
 		}
 	}
 	return
 }
 
-func linePlot(xvv, yvv [][]reflect.Value, c draw.Canvas) string {
-	x, y := linePlotData(xvv, yvv)
+func linePlot(xv, yv []reflect.Value, c draw.Canvas) string {
+	x, y := linePlotData(xv, yv)
 	chart := plot.NewLineChart(c)
-	data := new(plot.DataTable)
+	data := new(data.Table)
 	data.AddColumn("x")
 	data.AddColumn("y")
 	n := len(x)
 	if len(y) > n {
 		n = len(y)
+	}
+	if len(y) == 0 {
+		log.Fatal("no valid y values given")
 	}
 	// If no valid xs are given, use the indices as x values.
 	if len(x) == 0 {

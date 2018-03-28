@@ -13,3 +13,8 @@ func Ff(x float64) []rune {
 	}
 	return []rune(fixed)
 }
+
+// Fi formats an int
+func Fi(x int) []rune {
+	return []rune(strconv.FormatInt(int64(x), 10))
+}

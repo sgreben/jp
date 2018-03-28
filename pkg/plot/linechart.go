@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"math"
 
+	"github.com/sgreben/jp/pkg/data"
 	"github.com/sgreben/jp/pkg/draw"
 )
 
@@ -29,11 +30,11 @@ func (c *LineChart) drawAxes(paddingX, paddingY int, minX, maxX, minY, maxY floa
 }
 
 // Draw implements Chart
-func (c *LineChart) Draw(data *DataTable) string {
+func (c *LineChart) Draw(table *data.Table) string {
 	var scaleY, scaleX float64
 	var prevX, prevY int
 
-	minX, maxX, minY, maxY := minMax(data)
+	minX, maxX, minY, maxY := minMax(table)
 	minLabelWidth := len(Ff(minY))
 	maxLabelWidth := len(Ff(maxY))
 
@@ -48,7 +49,7 @@ func (c *LineChart) Draw(data *DataTable) string {
 	scaleY = float64(chartHeight) / (maxY - minY)
 
 	first := true
-	for _, point := range data.Rows {
+	for _, point := range table.Rows {
 		if len(point) < 2 {
 			continue
 		}
@@ -83,11 +84,11 @@ func roundUpToPercentOfRange(x, d float64) float64 {
 	return math.Ceil((x*105)/d) * d / 100
 }
 
-func minMax(data *DataTable) (minX, maxX, minY, maxY float64) {
+func minMax(table *data.Table) (minX, maxX, minY, maxY float64) {
 	minX, minY = math.Inf(1), math.Inf(1)
 	maxX, maxY = math.Inf(-1), math.Inf(-1)
 
-	for _, r := range data.Rows {
+	for _, r := range table.Rows {
 		if len(r) < 2 {
 			continue
 		}
