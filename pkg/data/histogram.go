@@ -64,7 +64,7 @@ func NewBins(points []float64) *Bins {
 }
 
 func (b *Bins) left(i int) float64 {
-	return (b.max - b.min) / float64(b.Number) * float64(i)
+	return b.min + ((b.max - b.min) / float64(b.Number) * float64(i))
 }
 
 func (b *Bins) right(i int) float64 {
