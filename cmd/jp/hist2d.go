@@ -9,7 +9,7 @@ import (
 	"github.com/sgreben/jp/pkg/plot"
 )
 
-func heatmapData(xv []reflect.Value, yv []reflect.Value, nbins uint) (heatmap *data.Heatmap) {
+func hist2DData(xv []reflect.Value, yv []reflect.Value, nbins uint) (heatmap *data.Heatmap) {
 	var x, y []float64
 	for i := range xv {
 		if xv[i].IsValid() && xv[i].CanInterface() {
@@ -48,8 +48,8 @@ func heatmapData(xv []reflect.Value, yv []reflect.Value, nbins uint) (heatmap *d
 	return
 }
 
-func heatmap(xv, yv []reflect.Value, c draw.Canvas, nbins uint) string {
-	heatmap := heatmapData(xv, yv, nbins)
+func hist2D(xv, yv []reflect.Value, c draw.Canvas, nbins uint) string {
+	heatmap := hist2DData(xv, yv, nbins)
 	chart := plot.NewHeatMap(c.GetBuffer())
 	return chart.Draw(heatmap)
 }

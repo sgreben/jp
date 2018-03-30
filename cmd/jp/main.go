@@ -31,7 +31,7 @@ const (
 	plotTypeBar     = "bar"
 	plotTypeScatter = "scatter"
 	plotTypeHist    = "hist"
-	plotTypeHeatmap = "hist2d"
+	plotTypeHist2D  = "hist2d"
 )
 
 const (
@@ -54,7 +54,7 @@ var config = configuration{
 			plotTypeBar,
 			plotTypeScatter,
 			plotTypeHist,
-			plotTypeHeatmap,
+			plotTypeHist2D,
 		},
 	},
 	CanvasType: enumVar{
@@ -182,7 +182,7 @@ func main() {
 		fmt.Println(barPlot(x, y, c))
 	case plotTypeHist:
 		fmt.Println(histogram(x, c, config.HistBins))
-	case plotTypeHeatmap:
-		fmt.Println(heatmap(x, y, c, config.HistBins))
+	case plotTypeHist2D:
+		fmt.Println(hist2D(x, y, c, config.HistBins))
 	}
 }

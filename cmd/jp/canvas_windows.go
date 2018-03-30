@@ -7,5 +7,5 @@ var autoCanvas = map[string]string{
 	plotTypeLine:    canvasTypeFull,
 	plotTypeScatter: canvasTypeFull,
 	plotTypeHist:    canvasTypeFull,
-	plotTypeHeatmap: canvasTypeFull,
+	plotTypeHist2D:  canvasTypeFull,
 }
