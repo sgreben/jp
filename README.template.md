@@ -37,16 +37,16 @@ Or [download the binary](https://github.com/sgreben/jp/releases/latest) from the
 
 ```bash
 # Linux
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.5/jp_1.1.5_linux_x86_64.zip
-unzip jp_1.1.5_linux_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/${VERSION}/jp_${VERSION}_linux_x86_64.zip
+unzip jp_${VERSION}_linux_x86_64.zip
 
 # OS X
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.5/jp_1.1.5_osx_x86_64.zip
-unzip jp_1.1.5_osx_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/${VERSION}/jp_${VERSION}_osx_x86_64.zip
+unzip jp_${VERSION}_osx_x86_64.zip
 
 # Windows
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.5/jp_1.1.5_windows_x86_64.zip
-unzip jp_1.1.5_windows_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/${VERSION}/jp_${VERSION}_windows_x86_64.zip
+unzip jp_${VERSION}_windows_x86_64.zip
 ```
 
 ## Use it

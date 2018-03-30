@@ -1,4 +1,4 @@
-package primitives
+package draw
 
 type Box struct {
 	Width  int

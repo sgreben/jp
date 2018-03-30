@@ -3,5 +3,5 @@
 package terminal
 
 func getWinsize() (int, int, error) {
-	return 80, 24, nil
+	return 79, 24, nil
 }

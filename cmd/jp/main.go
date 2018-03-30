@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/csv"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -8,24 +9,41 @@ import (
 	"os"
 	"reflect"
 
-	"github.com/sgreben/jp/pkg/jp/primitives"
+	"github.com/sgreben/jp/pkg/draw"
 	"github.com/sgreben/jp/pkg/terminal"
 
 	"github.com/sgreben/jp/pkg/jsonpath"
 )
 
 type configuration struct {
-	Box      primitives.Box
-	X        string
-	Y        string
-	XY       string
-	PlotType enumVar
+	Box        draw.Box
+	X          string
+	Y          string
+	XY         string
+	PlotType   enumVar
+	CanvasType enumVar
+	InputType  enumVar
+	HistBins   uint
 }
 
-const plotTypeLine = "line"
-const plotTypeBar = "bar"
-const plotTypeScatter = "scatter"
-const plotTypeHist = "hist"
+const (
+	plotTypeLine    = "line"
+	plotTypeBar     = "bar"
+	plotTypeScatter = "scatter"
+	plotTypeHist    = "hist"
+)
+
+const (
+	canvasTypeFull    = "full"
+	canvasTypeQuarter = "quarter"
+	canvasTypeBraille = "braille"
+	canvasTypeAuto    = "auto"
+)
+
+const (
+	inputTypeCSV  = "csv"
+	inputTypeJSON = "json"
+)
 
 var config = configuration{
 	PlotType: enumVar{
@@ -33,23 +51,47 @@ var config = configuration{
 		Choices: []string{
 			plotTypeLine,
 			plotTypeBar,
+			plotTypeScatter,
+			plotTypeHist,
+		},
+	},
+	CanvasType: enumVar{
+		Value: canvasTypeAuto,
+		Choices: []string{
+			canvasTypeFull,
+			canvasTypeQuarter,
+			canvasTypeBraille,
+			canvasTypeAuto,
+		},
+	},
+	InputType: enumVar{
+		Value: inputTypeJSON,
+		Choices: []string{
+			inputTypeJSON,
+			inputTypeCSV,
 		},
 	},
 }
 
-var xPattern *jsonpath.JSONPath
-var yPattern *jsonpath.JSONPath
-var xyPattern *jsonpath.JSONPath
+var (
+	xPattern  *jsonpath.JSONPath
+	yPattern  *jsonpath.JSONPath
+	xyPattern *jsonpath.JSONPath
+)
 
 func init() {
 	flag.Var(&config.PlotType, "type", fmt.Sprintf("Plot type. One of %v", config.PlotType.Choices))
+	flag.Var(&config.CanvasType, "canvas", fmt.Sprintf("Canvas type. One of %v", config.CanvasType.Choices))
+	flag.Var(&config.InputType, "input", fmt.Sprintf("Input type. One of %v", config.InputType.Choices))
 	flag.StringVar(&config.X, "x", "", "x values (JSONPath expression)")
 	flag.StringVar(&config.Y, "y", "", "y values (JSONPath expression)")
 	flag.StringVar(&config.XY, "xy", "", "x,y value pairs (JSONPath expression). Overrides -x and -y if given.")
 	flag.IntVar(&config.Box.Width, "width", 0, "Plot width (default 0 (auto))")
 	flag.IntVar(&config.Box.Height, "height", 0, "Plot height (default 0 (auto))")
+	flag.UintVar(&config.HistBins, "bins", 0, "Number of histogram bins (default 0 (auto))")
 	flag.Parse()
 	log.SetOutput(os.Stderr)
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
 
 	var err error
 	xPattern = jsonpath.New("x")
@@ -75,6 +117,9 @@ func init() {
 	if config.Box.Height == 0 {
 		config.Box.Height = terminal.Height() - 1
 	}
+	if config.CanvasType.Value == canvasTypeAuto {
+		config.CanvasType.Value = autoCanvas[config.PlotType.Value]
+	}
 }
 
 func match(in interface{}, p *jsonpath.JSONPath) [][]reflect.Value {
@@ -87,24 +132,48 @@ func match(in interface{}, p *jsonpath.JSONPath) [][]reflect.Value {
 
 func main() {
 	var in interface{}
-	dec := json.NewDecoder(os.Stdin)
-	err := dec.Decode(&in)
-	if err != nil {
-		log.Println(err)
+	switch config.InputType.Value {
+	case inputTypeJSON:
+		dec := json.NewDecoder(os.Stdin)
+		err := dec.Decode(&in)
+		if err != nil {
+			log.Println(err)
+		}
+	case inputTypeCSV:
+		r := csv.NewReader(os.Stdin)
+		rows, err := r.ReadAll()
+		if err != nil {
+			log.Println(err)
+		}
+		in = parseRows(rows)
 	}
-	fmt.Println()
-	var x, y [][]reflect.Value
+	var x, y []reflect.Value
 	if xyPattern != nil {
 		x, y = split(match(in, xyPattern))
 	} else {
-		x = match(in, xPattern)
-		y = match(in, yPattern)
+		x = flatten(match(in, xPattern))
+		y = flatten(match(in, yPattern))
 	}
+	buffer := draw.NewBuffer(config.Box)
+	var p draw.Pixels
+	switch config.CanvasType.Value {
+	case canvasTypeBraille:
+		p = &draw.Braille{Buffer: buffer}
+	case canvasTypeQuarter:
+		p = &draw.Quarter{Buffer: buffer}
+	case canvasTypeFull:
+		p = &draw.Full{Buffer: buffer}
+	}
+	p.Clear()
+	c := draw.Canvas{Pixels: p}
 	switch config.PlotType.Value {
 	case plotTypeLine:
-		fmt.Print(linePlot(x, y, config.Box))
+		fmt.Println(linePlot(x, y, c))
+	case plotTypeScatter:
+		fmt.Println(scatterPlot(x, y, c))
 	case plotTypeBar:
-		fmt.Print(barPlot(x, y, config.Box))
+		fmt.Println(barPlot(x, y, c))
+	case plotTypeHist:
+		fmt.Println(histogram(x, c, config.HistBins))
 	}
-
 }
