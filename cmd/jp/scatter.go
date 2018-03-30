@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"reflect"
 
 	"github.com/sgreben/jp/pkg/data"
@@ -37,6 +38,9 @@ func scatterPlot(xv, yv []reflect.Value, c draw.Canvas) string {
 	n := len(x)
 	if len(y) > n {
 		n = len(y)
+	}
+	if len(y) == 0 {
+		log.Fatal("no valid y values given")
 	}
 	// If no valid xs are given, use the indices as x values.
 	if len(x) == 0 {
