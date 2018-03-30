@@ -31,7 +31,7 @@ func Width() int {
 	col, _, err := getWinsize()
 
 	if err != nil {
-		return -1
+		return 79
 	}
 
 	return col
@@ -40,7 +40,7 @@ func Width() int {
 func Height() int {
 	_, row, err := getWinsize()
 	if err != nil {
-		return -1
+		return 24
 	}
 	return row
 }
