@@ -21,6 +21,7 @@ release: README.md
 	git add Makefile
 	git commit -am "Update Makefile"
 	git tag "$(VERSION)"
+	git push
 	git push origin "$(VERSION)"
 
 # go get -u github.com/github/hub
