@@ -2,3 +2,12 @@ language: go
 go:
   - "1.10"
 script: make zip README.md
+deploy:
+  provider: releases
+  api_key: 
+    secure: "ZFj9EipPgHU5RLyzgOXx+dI4P3UOgwHb//dplU5YIQaSoaYutdakhmzqxVjwHl5UxyNGnUiUaaPS1TG+rfW3fV2ENA7+WTxGZCxPidLC2XQgMKfQyabGxA460A7VPdY8X1nVz2mZnbGa8VRNaI2Z8838Imivo1biKo07bySU850JsU0OFezZqDpC3I0TLsvBnLWszFjJxCUIPvrlQTZsAmtBtNPqmTuJB5HxPKKFaB1ScKmZT91MxBrdkn+s2jmv+ucSe4gz+ktnS2htfzDkbXBbFGVTA1FVXgIHyq/ErVLjC5RFOPXn4bv6HOSqfQ5X78ICQ3BdIPoq7XJt4goH1fBDe2xBLG/HKGZRe8nS7AuJb+DAlcl3qJp1miUldVNF9o0sjvYaw0rrhcRwXm6bR4HVQ34/9zGU4OxQMMRIMOGEIi5dnE9bcC0gyeqBkyI+zCwAGhZt5GfXpSzxSUfhSW3GkiuVVoZctpwRo+snbf+RzThDxuXe1ipHj7djkGs6YdLgEHXOnVF0lVrDH6sciiN+i4CDlHZqypERLVfcSAwOgz6Ulie54dW0CHj6y9IAz75LsphlSa2SUN8YLPeKPptvFhEiMGEC/KRWIws+h3o2lv1ff8DpK3sgf1IIKwPduZnCu5YNDc60qGiGtCc0v/MT+ykYV5aAJtbuWYG0+Ng="
+  file_glob: true
+  file: release/*
+  skip_cleanup: true
+  on:
+    tags: true
