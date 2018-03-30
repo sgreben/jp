@@ -1,4 +1,4 @@
-VERSION = 1.1.6
+VERSION = 1.1.7
 
 APP      := jp
 PACKAGES := $(shell go list -f {{.Dir}} ./...)
@@ -13,7 +13,13 @@ clean:
 
 release-ci: README.md zip
 
-release:
+release: README.md
+	git reset
+	git add README.md
+	git commit -am "Update README.md"
+	git reset
+	git add Makefile
+	git commit -am "Update Makefile"
 	git tag "$(VERSION)"
 	git push origin "$(VERSION)"
 
