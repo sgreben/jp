@@ -1,4 +1,4 @@
-VERSION = 1.1.7
+VERSION = 1.1.8
 
 APP      := jp
 PACKAGES := $(shell go list -f {{.Dir}} ./...)

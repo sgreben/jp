@@ -7,4 +7,5 @@ var autoCanvas = map[string]string{
 	plotTypeLine:    canvasTypeQuarter,
 	plotTypeScatter: canvasTypeBraille,
 	plotTypeHist:    canvasTypeQuarter,
+	plotTypeHeatmap: canvasTypeFull,
 }

@@ -31,6 +31,7 @@ const (
 	plotTypeBar     = "bar"
 	plotTypeScatter = "scatter"
 	plotTypeHist    = "hist"
+	plotTypeHeatmap = "hist2d"
 )
 
 const (
@@ -53,6 +54,7 @@ var config = configuration{
 			plotTypeBar,
 			plotTypeScatter,
 			plotTypeHist,
+			plotTypeHeatmap,
 		},
 	},
 	CanvasType: enumVar{
@@ -123,6 +125,11 @@ func init() {
 }
 
 func match(in interface{}, p *jsonpath.JSONPath) [][]reflect.Value {
+	defer func() {
+		if r := recover(); r != nil {
+			log.Println("error evaluating JSONPath", p.String+":", r)
+		}
+	}()
 	out, err := p.FindResults(in)
 	if err != nil {
 		log.Println(err)
@@ -137,13 +144,13 @@ func main() {
 		dec := json.NewDecoder(os.Stdin)
 		err := dec.Decode(&in)
 		if err != nil {
-			log.Println(err)
+			log.Println(inputTypeJSON, "input:", err)
 		}
 	case inputTypeCSV:
 		r := csv.NewReader(os.Stdin)
 		rows, err := r.ReadAll()
 		if err != nil {
-			log.Println(err)
+			log.Println(inputTypeCSV, "input:", err)
 		}
 		in = parseRows(rows)
 	}
@@ -175,5 +182,7 @@ func main() {
 		fmt.Println(barPlot(x, y, c))
 	case plotTypeHist:
 		fmt.Println(histogram(x, c, config.HistBins))
+	case plotTypeHeatmap:
+		fmt.Println(heatmap(x, y, c, config.HistBins))
 	}
 }

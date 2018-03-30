@@ -25,7 +25,7 @@ func histogramData(xv []reflect.Value, nbins uint) (groups []string, counts []fl
 	bins := data.NewBins(x)
 	bins.Number = int(nbins)
 	if nbins == 0 {
-		bins.ChooseSturges()
+		bins.Number = data.BinsSturges(len(x))
 	}
 	hist := data.Histogram(x, bins)
 	groups = make([]string, len(hist))

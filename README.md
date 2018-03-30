@@ -19,6 +19,7 @@ Dead simple terminal plots from JSON (or CSV) data. Bar charts, line charts, and
         - [Array data, XY pairs](#array-data-xy-pairs)
         - [Y values only (X=index)](#y-values-only-xindex-1)
     - [Scatter plot](#scatter-plot)
+    - [Heatmap](#heatmap)
     - [Histogram](#histogram)
         - [Auto bin number](#auto-bin-number)
         - [Fixed bin number](#fixed-bin-number)
@@ -38,16 +39,16 @@ Or [download the binary](https://github.com/sgreben/jp/releases/latest) from the
 
 ```bash
 # Linux
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.7/jp_1.1.7_linux_x86_64.zip
-unzip jp_1.1.7_linux_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.1.8/jp_1.1.8_linux_x86_64.zip
+unzip jp_1.1.8_linux_x86_64.zip
 
 # OS X
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.7/jp_1.1.7_osx_x86_64.zip
-unzip jp_1.1.7_osx_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.1.8/jp_1.1.8_osx_x86_64.zip
+unzip jp_1.1.8_osx_x86_64.zip
 
 # Windows
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.7/jp_1.1.7_windows_x86_64.zip
-unzip jp_1.1.7_windows_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.1.8/jp_1.1.8_windows_x86_64.zip
+unzip jp_1.1.8_windows_x86_64.zip
 ```
 
 ## Use it
@@ -57,7 +58,7 @@ unzip jp_1.1.7_windows_x86_64.zip
 ```text
 Usage of jp:
   -type value
-    	Plot type. One of [line bar scatter hist] (default line)
+    	Plot type. One of [line bar scatter hist hist2d] (default line)
   -x string
     	x values (JSONPath expression)
   -y string
@@ -280,6 +281,43 @@ $ cat examples/mvrnorm.json | jp -xy '..[x,y]' -type scatter
          │                                      ⠈                              
 -4.271874└─────────────────────────────────────────────────────────────────────
           -4.08815                                                       3.79083
+```
+
+### Heatmap
+
+```
+$ cat examples/mvrnorm.json | jp -xy '..[x,y]' -type hist2d
+
+  3.3608│                   ····    ········    ····        
+        │                   ····    ········    ····        
+        │                   ····    ········    ····        
+        │                   ················    ····        
+        │                   ················    ····        
+        │           ································        
+        │           ································        
+        │       ················░░░░░░░░░░░░················
+        │       ················░░░░░░░░░░░░················
+        │       ············▒▒▒▒▓▓▓▓▒▒▒▒▒▒▒▒░░░░············
+        │       ············▒▒▒▒▓▓▓▓▒▒▒▒▒▒▒▒░░░░············
+        │···············▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒············
+        │···············▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▒▒▒▒············
+        │       ········░░░░▓▓▓▓▓▓▓▓████▓▓▓▓▒▒▒▒············
+        │       ········░░░░▓▓▓▓▓▓▓▓████▓▓▓▓▒▒▒▒············
+        │       ········░░░░▓▓▓▓▓▓▓▓████▓▓▓▓▒▒▒▒············
+        │   ············▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒············
+        │   ············▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▒▒▒▒▒▒▒▒············
+        │       ············▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒················
+        │       ············▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒················
+        │           ····································    
+        │           ····································    
+        │               ····························        
+        │               ····························        
+        │               ····        ····        ····        
+        │               ····        ····        ····        
+        │                                   ····            
+        │                                   ····            
+ -4.0045└───────────────────────────────────────────────────
+        -3.8421                                       3.5909
 ```
 
 ### Histogram

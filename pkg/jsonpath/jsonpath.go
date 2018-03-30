@@ -26,6 +26,7 @@ import (
 
 type JSONPath struct {
 	name       string
+	String     string
 	parser     *Parser
 	stack      [][]reflect.Value // push and pop values in different scopes
 	cur        []reflect.Value   // current scope values
@@ -56,6 +57,7 @@ func (j *JSONPath) AllowMissingKeys(allow bool) *JSONPath {
 // Parse parses the given template and returns an error.
 func (j *JSONPath) Parse(text string) error {
 	var err error
+	j.String = text
 	j.parser, err = Parse(j.name, text)
 	return err
 }

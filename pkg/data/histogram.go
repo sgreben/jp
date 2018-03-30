@@ -23,6 +23,7 @@ type Bin struct {
 	Right          float64
 	RightInclusive bool
 	Count          uint64
+	CountNorm      float64
 }
 
 func (b *Bin) String() string {
@@ -38,16 +39,16 @@ type Bins struct {
 	numPoints int
 }
 
-func (b *Bins) ChooseSqrt() {
-	b.Number = int(math.Sqrt(float64(b.numPoints)))
+func BinsSqrt(numPoints int) int {
+	return int(math.Sqrt(float64(numPoints)))
 }
 
-func (b *Bins) ChooseSturges() {
-	b.Number = int(math.Ceil(math.Log2(float64(b.numPoints))) + 1)
+func BinsSturges(numPoints int) int {
+	return int(math.Ceil(math.Log2(float64(numPoints))) + 1)
 }
 
-func (b *Bins) ChooseRice() {
-	b.Number = int(math.Ceil(2 * math.Pow(float64(b.numPoints), 1.0/3.0)))
+func BinsRice(numPoints int) int {
+	return int(math.Ceil(2 * math.Pow(float64(numPoints), 1.0/3.0)))
 }
 
 func NewBins(points []float64) *Bins {
@@ -103,6 +104,45 @@ func Histogram(points []float64, bins *Bins) (out []Bin) {
 	}
 	for _, x := range points {
 		out[bins.Point(x)].Count++
+	}
+	return
+}
+
+type Bins2D struct {
+	X *Bins
+	Y *Bins
+}
+
+func NewBins2D(points [][2]float64) *Bins2D {
+	bins := new(Bins2D)
+	xs := make([]float64, len(points))
+	ys := make([]float64, len(points))
+	for i := range points {
+		xs[i] = points[i][0]
+		ys[i] = points[i][1]
+	}
+	bins.X = NewBins(xs)
+	bins.Y = NewBins(ys)
+	return bins
+}
+
+func Histogram2D(points [][2]float64, bins *Bins2D) (x, y []Bin, z [][]uint64) {
+	x = bins.X.All()
+	y = bins.Y.All()
+	z = make([][]uint64, len(y))
+	for _, b := range x {
+		b.Count = 0
+	}
+	for i, b := range y {
+		z[i] = make([]uint64, len(x))
+		b.Count = 0
+	}
+	for _, p := range points {
+		i := bins.X.Point(p[0])
+		j := bins.Y.Point(p[1])
+		x[i].Count++
+		y[j].Count++
+		z[i][j]++
 	}
 	return
 }
