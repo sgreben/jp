@@ -51,10 +51,10 @@ func (c *HeatMap) Draw(heatmap *data.Heatmap) string {
 
 	for i := range heatmap.Z {
 		for j := range heatmap.Z[i] {
-			x0 := int((heatmap.X[j].LeftInclusive-minX)*scaleX + float64(paddingX+1))
-			y0 := int((heatmap.Y[i].LeftInclusive-minY)*scaleY + float64(paddingY))
-			x1 := int((heatmap.X[j].Right-minX)*scaleX + float64(paddingX+1))
-			y1 := int((heatmap.Y[i].Right-minY)*scaleY + float64(paddingY))
+			x0 := int((heatmap.X[i].LeftInclusive-minX)*scaleX + float64(paddingX+1))
+			y0 := int((heatmap.Y[j].LeftInclusive-minY)*scaleY + float64(paddingY))
+			x1 := int((heatmap.X[i].Right-minX)*scaleX + float64(paddingX+1))
+			y1 := int((heatmap.Y[j].Right-minY)*scaleY + float64(paddingY))
 			z := heatmap.Z[i][j]
 			for x := x0; x < x1; x++ {
 				for y := y0; y < y1; y++ {
