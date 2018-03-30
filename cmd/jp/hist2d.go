@@ -9,7 +9,7 @@ import (
 	"github.com/sgreben/jp/pkg/plot"
 )
 
-func hist2DData(xv []reflect.Value, yv []reflect.Value, nbins uint) (heatmap *data.Heatmap) {
+func hist2DData(xv, yv []reflect.Value, nbins uint) (heatmap *data.Heatmap) {
 	var x, y []float64
 	for i := range xv {
 		if xv[i].IsValid() && xv[i].CanInterface() {

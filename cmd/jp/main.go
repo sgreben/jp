@@ -97,17 +97,20 @@ func init() {
 
 	var err error
 	xPattern = jsonpath.New("x")
+	xPattern.AllowMissingKeys(true)
 	err = xPattern.Parse(fmt.Sprintf("{%s}", config.X))
 	if err != nil {
 		log.Fatal(err)
 	}
 	yPattern = jsonpath.New("y")
+	yPattern.AllowMissingKeys(true)
 	err = yPattern.Parse(fmt.Sprintf("{%s}", config.Y))
 	if err != nil {
 		log.Fatal(err)
 	}
-	if config.XY != "" {
+	if config.XY != "" || (config.X == "" && config.Y == "") {
 		xyPattern = jsonpath.New("xy")
+		xyPattern.AllowMissingKeys(true)
 		err = xyPattern.Parse(fmt.Sprintf("{%s}", config.XY))
 		if err != nil {
 			log.Fatal(err)
