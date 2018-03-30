@@ -24,6 +24,7 @@ Dead simple terminal plots from JSON (or CSV) data. Bar charts, line charts, and
         - [Fixed bin number](#fixed-bin-number)
     - [CSV input](#csv-input)
 - [Screenshots](#screenshots)
+- [Licensing](#licensing)
 
 <!-- /TOC -->
 
@@ -371,3 +372,9 @@ In case you're on mobile, here's some PNGs of what `jp` output looks like:
 - ![Scatter plot](docs/scatter_plot.png)
 - ![Bar chart](docs/bar_chart.png)
 - ![Line chart](docs/line_chart.png)
+
+## Licensing
+
+- Any original code is licensed under the [MIT License](./LICENSE).
+- Included portions of [github.com/buger/goterm](https://github.com/buger/goterm) are licensed under the MIT License.
+- Included portions of [github.com/kubernetes/client-go](https://github.com/kubernetes/client-go/tree/master/util/jsonpath) are licensed under the Apache License 2.0.
