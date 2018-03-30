@@ -16,10 +16,10 @@ release-ci: README.md zip
 release: README.md
 	git reset
 	git add README.md
-	git commit -am "Update README.md"
+	git commit -am "Update README.md" || true
 	git reset
 	git add Makefile
-	git commit -am "Update Makefile"
+	git commit -am "Update Makefile" || true
 	git tag "$(VERSION)"
 	git push
 	git push origin "$(VERSION)"
