@@ -1,4 +1,4 @@
 language: go
 go:
   - "1.10"
-script: make zip
+script: make zip README.md

@@ -7,8 +7,6 @@ GOFILES  := $(wildcard $(GOFILES))
 
 .PHONY: clean release release-ci release-manual docker docker-latest README.md
 
-
-
 clean: 
 	rm -rf binaries/
 	rm -rf release/
