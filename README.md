@@ -39,16 +39,16 @@ Or [download the binary](https://github.com/sgreben/jp/releases/latest) from the
 
 ```bash
 # Linux
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.10/jp_1.1.10_linux_x86_64.zip
-unzip jp_1.1.10_linux_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.1.11/jp_1.1.11_linux_x86_64.zip
+unzip jp_1.1.11_linux_x86_64.zip
 
 # OS X
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.10/jp_1.1.10_osx_x86_64.zip
-unzip jp_1.1.10_osx_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.1.11/jp_1.1.11_osx_x86_64.zip
+unzip jp_1.1.11_osx_x86_64.zip
 
 # Windows
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.10/jp_1.1.10_windows_x86_64.zip
-unzip jp_1.1.10_windows_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.1.11/jp_1.1.11_windows_x86_64.zip
+unzip jp_1.1.11_windows_x86_64.zip
 ```
 
 ## Use it
@@ -415,6 +415,7 @@ In case you're on mobile, here's some PNGs of what `jp` output looks like:
 
 ![Line chart](docs/line_chart.png)
 
+![Heatmap](docs/hist2d_full_escape.png)
 
 ## Licensing
 
