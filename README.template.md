@@ -407,9 +407,14 @@ $ cat examples/sin.csv | jp -input csv -xy '[*][0,1]'
 
 In case you're on mobile, here's some PNGs of what `jp` output looks like:
 
-- ![Scatter plot](docs/scatter_plot.png)
-- ![Bar chart](docs/bar_chart.png)
-- ![Line chart](docs/line_chart.png)
+![Scatter plot](docs/scatter_plot.png)
+
+![Bar chart](docs/bar_chart.png)
+
+![Bar chart](docs/bar_chart_full_escape.png)
+
+![Line chart](docs/line_chart.png)
+
 
 ## Licensing
 
