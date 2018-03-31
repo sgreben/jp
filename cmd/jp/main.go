@@ -35,10 +35,11 @@ const (
 )
 
 const (
-	canvasTypeFull    = "full"
-	canvasTypeQuarter = "quarter"
-	canvasTypeBraille = "braille"
-	canvasTypeAuto    = "auto"
+	canvasTypeFull       = "full"
+	canvasTypeFullEscape = "full-escape"
+	canvasTypeQuarter    = "quarter"
+	canvasTypeBraille    = "braille"
+	canvasTypeAuto       = "auto"
 )
 
 const (
@@ -61,6 +62,7 @@ var config = configuration{
 		Value: canvasTypeAuto,
 		Choices: []string{
 			canvasTypeFull,
+			canvasTypeFullEscape,
 			canvasTypeQuarter,
 			canvasTypeBraille,
 			canvasTypeAuto,
@@ -173,19 +175,26 @@ func main() {
 		p = &draw.Quarter{Buffer: buffer}
 	case canvasTypeFull:
 		p = &draw.Full{Buffer: buffer}
+	case canvasTypeFullEscape:
+		p = &draw.Full{Buffer: buffer}
 	}
 	p.Clear()
 	c := draw.Canvas{Pixels: p}
+	var out string
 	switch config.PlotType.Value {
 	case plotTypeLine:
-		fmt.Println(linePlot(x, y, c))
+		out = linePlot(x, y, c)
 	case plotTypeScatter:
-		fmt.Println(scatterPlot(x, y, c))
+		out = scatterPlot(x, y, c)
 	case plotTypeBar:
-		fmt.Println(barPlot(x, y, c))
+		out = barPlot(x, y, c)
 	case plotTypeHist:
-		fmt.Println(histogram(x, c, config.HistBins))
+		out = histogram(x, c, config.HistBins)
 	case plotTypeHist2D:
-		fmt.Println(hist2D(x, y, c, config.HistBins))
+		out = hist2D(x, y, c, config.HistBins)
 	}
+	if config.CanvasType.Value == canvasTypeFullEscape {
+		out = draw.FullEscape(out)
+	}
+	fmt.Println(out)
 }

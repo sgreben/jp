@@ -39,16 +39,16 @@ Or [download the binary](https://github.com/sgreben/jp/releases/latest) from the
 
 ```bash
 # Linux
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.9/jp_1.1.9_linux_x86_64.zip
-unzip jp_1.1.9_linux_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.1.10/jp_1.1.10_linux_x86_64.zip
+unzip jp_1.1.10_linux_x86_64.zip
 
 # OS X
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.9/jp_1.1.9_osx_x86_64.zip
-unzip jp_1.1.9_osx_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.1.10/jp_1.1.10_osx_x86_64.zip
+unzip jp_1.1.10_osx_x86_64.zip
 
 # Windows
-curl -LO https://github.com/sgreben/jp/releases/download/1.1.9/jp_1.1.9_windows_x86_64.zip
-unzip jp_1.1.9_windows_x86_64.zip
+curl -LO https://github.com/sgreben/jp/releases/download/1.1.10/jp_1.1.10_windows_x86_64.zip
+unzip jp_1.1.10_windows_x86_64.zip
 ```
 
 ## Use it
@@ -74,7 +74,7 @@ Usage of jp:
   -width int
     	Plot width (default 0 (auto))
   -canvas value
-    	Canvas type. One of [full quarter braille auto] (default auto)
+    	Canvas type. One of [full full-escape quarter braille auto] (default auto)
 ```
 
 ## Examples
