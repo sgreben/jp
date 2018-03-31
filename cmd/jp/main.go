@@ -35,11 +35,13 @@ const (
 )
 
 const (
-	canvasTypeFull       = "full"
-	canvasTypeFullEscape = "full-escape"
-	canvasTypeQuarter    = "quarter"
-	canvasTypeBraille    = "braille"
-	canvasTypeAuto       = "auto"
+	canvasTypeFull         = "full"
+	canvasTypeFullEscape   = "full-escape"
+	canvasTypeFullEscapeBW = "full-bw"
+	canvasTypeFullEscapeWB = "full-wb"
+	canvasTypeQuarter      = "quarter"
+	canvasTypeBraille      = "braille"
+	canvasTypeAuto         = "auto"
 )
 
 const (
@@ -63,6 +65,8 @@ var config = configuration{
 		Choices: []string{
 			canvasTypeFull,
 			canvasTypeFullEscape,
+			canvasTypeFullEscapeBW,
+			canvasTypeFullEscapeWB,
 			canvasTypeQuarter,
 			canvasTypeBraille,
 			canvasTypeAuto,
@@ -175,7 +179,7 @@ func main() {
 		p = &draw.Quarter{Buffer: buffer}
 	case canvasTypeFull:
 		p = &draw.Full{Buffer: buffer}
-	case canvasTypeFullEscape:
+	case canvasTypeFullEscape, canvasTypeFullEscapeWB, canvasTypeFullEscapeBW:
 		p = &draw.Full{Buffer: buffer}
 	}
 	p.Clear()
@@ -193,8 +197,13 @@ func main() {
 	case plotTypeHist2D:
 		out = hist2D(x, y, c, config.HistBins)
 	}
-	if config.CanvasType.Value == canvasTypeFullEscape {
+	switch config.CanvasType.Value {
+	case canvasTypeFullEscape:
 		out = draw.FullEscape(out)
+	case canvasTypeFullEscapeBW:
+		out = draw.FullEscapeBW(out)
+	case canvasTypeFullEscapeWB:
+		out = draw.FullEscapeWB(out)
 	}
 	fmt.Println(out)
 }

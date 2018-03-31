@@ -74,7 +74,7 @@ Usage of jp:
   -width int
     	Plot width (default 0 (auto))
   -canvas value
-    	Canvas type. One of [full full-escape quarter braille auto] (default auto)
+    	Canvas type. One of [full full-escape full-bw full-wb quarter braille auto] (default auto)
 ```
 
 ## Examples
