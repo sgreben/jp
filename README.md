@@ -1,6 +1,6 @@
 # jp
 
-Dead simple terminal plots from JSON (or CSV) data. Bar charts, line charts, and scatter plots are supported.
+Dead simple terminal plots from JSON (or CSV) data. Bar charts, line charts, scatter plots, histograms and heatmaps are supported.
 
 [![Build Status](https://travis-ci.org/sgreben/jp.svg?branch=master)](https://travis-ci.org/sgreben/jp)
 
@@ -53,7 +53,7 @@ unzip jp_1.1.9_windows_x86_64.zip
 
 ## Use it
 
-`jp` reads JSON on stdin and prints plots to stdout.
+`jp` reads JSON (or CSV) on stdin and prints plots to stdout.
 
 ```text
 Usage of jp:
@@ -65,16 +65,16 @@ Usage of jp:
     	y values (JSONPath expression)
   -xy string
     	x,y value pairs (JSONPath expression). Overrides -x and -y if given.
+  -bins uint
+        Number of histogram bins (default 0 (auto))
+  -input value
+        Input type. One of [json csv] (default json)
   -height int
     	Plot height (default 0 (auto))
   -width int
     	Plot width (default 0 (auto))
   -canvas value
     	Canvas type. One of [full quarter braille auto] (default auto)
-  -bins uint
-        Number of histogram bins (default 0 (auto))
-  -input value
-        Input type. One of [json csv] (default json)
 ```
 
 ## Examples
