@@ -4,6 +4,8 @@ Dead simple terminal plots from JSON (or CSV) data. Bar charts, line charts, sca
 
 [![Build Status](https://travis-ci.org/sgreben/jp.svg?branch=master)](https://travis-ci.org/sgreben/jp)
 
+![Screenshot](docs/sin.png)
+
 <!-- TOC -->
 
 - [Get it](#get-it)
@@ -404,8 +406,6 @@ $ cat examples/sin.csv | jp -input csv -xy '[*][0,1]'
 ```
 
 ## Screenshots
-
-In case you're on mobile, here's some PNGs of what `jp` output looks like:
 
 ![Scatter plot](docs/scatter_plot.png)
 
