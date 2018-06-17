@@ -18,7 +18,7 @@ release: README.md
 	git add README.md
 	git add Makefile
 	git commit -am "Release $(VERSION)" || true
-	git tag "$(VERSION)"
+	git tag "$(VERSION)" || true
 	git push
 	git push origin "$(VERSION)"
 
