@@ -87,7 +87,7 @@ Usage of jp:
 #### Separate X and Y values
 
 ```bash
-$ cat examples/tcp-time.json | jp -x ..Label -y ..Count -type bar
+$ < examples/tcp-time.json jp -x ..Label -y ..Count -type bar
 
          69
     █████████████
@@ -106,7 +106,7 @@ $ cat examples/tcp-time.json | jp -x ..Label -y ..Count -type bar
 #### XY pairs
 
 ```bash
-$ cat examples/tcp-time.json | jp -xy "..[Label,Count]" -type bar
+$ < examples/tcp-time.json jp -xy "..[Label,Count]" -type bar
 
          69
     █████████████
@@ -124,7 +124,7 @@ $ cat examples/tcp-time.json | jp -xy "..[Label,Count]" -type bar
 #### Y values only (X=index)
 
 ```bash
-$ cat examples/tcp-time.json | jp -y ..Count -type bar
+$ < examples/tcp-time.json jp -y ..Count -type bar
 
          69
     █████████████
@@ -222,7 +222,7 @@ $ jq -n '[range(200)/20 | [., sin]]' | jp -xy '[*][0, 1]'
 #### Y values only (X=index)
 
 ```bash
-$ cat examples/tcp-time.json | jp -y ..Duration
+$ < examples/tcp-time.json jp -y ..Duration
  5.726165e+07│
              │
              │
@@ -252,7 +252,7 @@ $ cat examples/tcp-time.json | jp -y ..Duration
 ### Scatter plot
 
 ```bash
-$ cat examples/mvrnorm.json | jp -xy '..[x,y]' -type scatter
+$ < examples/mvrnorm.json jp -xy '..[x,y]' -type scatter
 
  3.535344│                                 ⠄             ⠄
          │                               ⠈⠂   ⠂       ⡀ ⠂
@@ -291,7 +291,7 @@ $ cat examples/mvrnorm.json | jp -xy '..[x,y]' -type scatter
 #### Auto bin number
 
 ```
-$ cat examples/mvrnorm.json | jp -x ..x -type hist
+$ < examples/mvrnorm.json jp -x ..x -type hist
                                     684                                     1  [-3.27033,-2.69856)
                                    █████▌                                   2  [-2.69856,-2.12679)
                                    █████▌ 624                               3  [-2.12679,-1.55502)
@@ -321,7 +321,7 @@ $ cat examples/mvrnorm.json | jp -x ..x -type hist
 #### Fixed bin number
 
 ```
-$ cat examples/mvrnorm.json | jp -x ..x -type hist -bins 5
+$ < examples/mvrnorm.json jp -x ..x -type hist -bins 5
                                          1652
                                     █████████████████
                                     █████████████████
@@ -351,7 +351,7 @@ $ cat examples/mvrnorm.json | jp -x ..x -type hist -bins 5
 ### 2D Histogram (heatmap)
 
 ```
-$ cat examples/mvrnorm.json | jp -xy '..[x,y]' -type hist2d
+$ < examples/mvrnorm.json jp -xy '..[x,y]' -type hist2d
 
   3.3608│                   ····    ········    ····
         │                   ····    ········    ····
@@ -414,7 +414,7 @@ $ echo "[0,1]" "[1,2]" "[2,3]" | jq -s . | jp
 ### CSV input
 
 ```
-$ cat examples/sin.csv | jp -input csv -xy '[*][0,1]'
+$ < examples/sin.csv jp -input csv -xy '[*][0,1]'
 
   1.059955│       ▗▄▛▀▀▚▄▖                                    ▄▄▀▀▀▄▄
           │     ▗▞▘      ▝▚▖                                ▄▀      ▝▀▄
