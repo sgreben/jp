@@ -16,14 +16,15 @@ import (
 )
 
 type configuration struct {
-	Box        draw.Box
-	X          string
-	Y          string
-	XY         string
-	PlotType   enumVar
-	CanvasType enumVar
-	InputType  enumVar
-	HistBins   uint
+	Box         draw.Box
+	X           string
+	Y           string
+	XY          string
+	PlotType    enumVar
+	CanvasType  enumVar
+	InputType   enumVar
+	HistBins    uint
+	RoundDigits int
 }
 
 const (
@@ -97,6 +98,7 @@ func init() {
 	flag.IntVar(&config.Box.Width, "width", 0, "Plot width (default 0 (auto))")
 	flag.IntVar(&config.Box.Height, "height", 0, "Plot height (default 0 (auto))")
 	flag.UintVar(&config.HistBins, "bins", 0, "Number of histogram bins (default 0 (auto))")
+	flag.IntVar(&config.RoundDigits, "round", 6, "Number of digits up to which the y value is to be rounded (applicable to bar type)")
 	flag.Parse()
 	log.SetOutput(os.Stderr)
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
@@ -191,7 +193,7 @@ func main() {
 	case plotTypeScatter:
 		out = scatterPlot(x, y, c)
 	case plotTypeBar:
-		out = barPlot(x, y, c)
+		out = barPlot(x, y, c, config.RoundDigits)
 	case plotTypeHist:
 		out = histogram(x, c, config.HistBins)
 	case plotTypeHist2D:
